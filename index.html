@@ -133,48 +133,58 @@
         .tagline {
             font-size: 1.3rem;
             color: #aaa;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
+        /* Кнопка скачивания - по центру и увеличенная */
         .download-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 14px;
             background: linear-gradient(105deg, #2e7d32, #1b5e20, #0a4b0f);
             background-size: 200% auto;
             color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            padding: 16px 48px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            padding: 20px 60px;
             border-radius: 80px;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin: 20px 0 15px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(76, 175, 80, 0.3) inset;
+            margin: 20px auto 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(76, 175, 80, 0.4) inset;
             border: none;
             cursor: pointer;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             backdrop-filter: blur(2px);
             animation: glowPulse 2.5s infinite;
+            width: auto;
+            min-width: 320px;
         }
 
         .download-btn:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px) scale(1.03);
             background-position: right center;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.5), 0 0 0 2px rgba(129, 199, 132, 0.6) inset;
+            box-shadow: 0 28px 45px rgba(0,0,0,0.6), 0 0 0 2px rgba(129, 199, 132, 0.7) inset;
             animation: none;
         }
 
         .download-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.98);
+        }
+
+        /* Конфигурация (версия) теперь внизу, отдельным блоком */
+        .version-info {
+            text-align: center;
+            margin-top: 25px;
         }
 
         .version-badge {
             background: rgba(255,255,255,0.08);
             backdrop-filter: blur(8px);
-            padding: 6px 18px;
+            padding: 8px 24px;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: #b9f6ca;
             border: 1px solid rgba(76,175,80,0.4);
@@ -352,28 +362,40 @@
             .logo { font-size: 3.8rem; }
             .logo-wrapper::before { font-size: 3.8rem; top: 2px; left: 2px; }
             .tagline { font-size: 1rem; }
-            .download-btn { font-size: 1.2rem; padding: 12px 32px; }
+            .download-btn { 
+                font-size: 1.3rem; 
+                padding: 14px 35px; 
+                min-width: 260px;
+            }
             .container { padding: 20px 16px; }
             .screenshot-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
             .install-steps { gap: 24px; }
             .step { padding: 16px 8px; }
+            .version-badge { font-size: 0.75rem; padding: 6px 16px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Hero секция - текст оригинальный -->
+        <!-- Hero секция - кнопка по центру и увеличенная, версия внизу -->
         <div class="hero">
             <div class="logo-wrapper">
                 <div class="logo">EDA</div>
             </div>
             <div class="tagline">Enjoy Draw Art — рисуй с удовольствием</div>
             
-            <a href="https://github.com/Marattor/EDA-website/releases/download/v0.87/EDA_Setup.exe" class="download-btn" download>
-                ⬇️ Скачать EDA
-            </a>
-            <div class="version-badge">Версия 0.87 BETA • Windows • ~62 МБ</div>
+            <!-- Кнопка скачивания - увеличенная и по центру -->
+            <div style="text-align: center;">
+                <a href="https://github.com/Marattor/EDA-website/releases/download/v0.87/EDA_Setup.exe" class="download-btn" download>
+                    ⬇️ Скачать EDA
+                </a>
+            </div>
+            
+            <!-- Конфигурация (версия и информация) перенесены вниз -->
+            <div class="version-info">
+                <div class="version-badge">Версия 0.87 BETA • Windows • ~62 МБ</div>
+            </div>
         </div>
 
         <!-- Скриншоты с реальными изображениями -->
