@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>EDA — графический редактор для творчества</title>
     <meta name="description" content="EDA — бесплатный графический редактор с поддержкой кистей, спрея, фигур, зума и экспорта. Рисуй с удовольствием!">
     <style>
@@ -13,16 +13,41 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0a0a12 0%, #12121c 50%, #1a1a2a 100%);
-            color: white;
-            line-height: 1.6;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0B0B16, #05050C);
+            color: #f0f0f0;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
+        /* Добавляем мягкую текстуру шума */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMDMiLz48L3N2Zz4=');
+            background-repeat: repeat;
+            pointer-events: none;
+            opacity: 0.25;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 24px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Анимации */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -30,13 +55,18 @@
             }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.5); }
-            70% { box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.5), 0 0 0 0 rgba(33, 150, 243, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 18px rgba(76, 175, 80, 0), 0 0 0 6px rgba(33, 150, 243, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0), 0 0 0 0 rgba(33, 150, 243, 0);
+            }
         }
 
-        /* Новые анимации для улучшенного заголовка */
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -49,65 +79,55 @@
             100% { transform: translateY(0px); }
         }
 
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 5px rgba(76,175,80,0.3), 0 0 10px rgba(33,150,243,0.2); }
-            100% { text-shadow: 0 0 20px rgba(76,175,80,0.6), 0 0 30px rgba(33,150,243,0.4); }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
+        /* Hero секция с улучшенным заголовком */
         .hero {
             text-align: center;
-            padding: 60px 20px;
-            animation: fadeInUp 0.8s ease-out;
+            padding: 40px 20px 60px;
+            animation: fadeInUp 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
 
-        /* Улучшенный логотип EDA — красивее, объемнее, с анимацией */
+        /* Главный логотип — эффектный, объёмный, с анимацией */
+        .logo-wrapper {
+            margin-bottom: 20px;
+            perspective: 800px;
+            position: relative;
+            display: inline-block;
+        }
+
         .logo {
-            font-size: 5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #4CAF50, #2196F3, #9C27B0, #4CAF50);
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            display: inline-block;
+            background: linear-gradient(135deg, #E0F2FE, #4CAF50, #81C784, #64B5F6, #7E57FF);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
-            animation: gradientShift 5s ease infinite, gentleFloat 3s ease-in-out infinite;
-            display: inline-block;
+            animation: gradientShift 6s ease infinite, gentleFloat 3s ease-in-out infinite;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             position: relative;
-            letter-spacing: 4px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
         }
 
-        /* Добавляем эффект свечения при наведении */
-        .logo:hover {
-            animation: gradientShift 3s ease infinite, gentleFloat 2s ease-in-out infinite, textGlow 1.5s ease-in-out infinite alternate;
-        }
-
-        /* Декоративная тень для объема */
-        .logo-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* добавляем декоративную тень для объёма */
         .logo-wrapper::before {
             content: "EDA";
             position: absolute;
             top: 4px;
             left: 4px;
-            font-size: 5rem;
-            font-weight: 800;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
             background: linear-gradient(135deg, rgba(76,175,80,0.3), rgba(33,150,243,0.3));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            filter: blur(12px);
             z-index: -1;
-            filter: blur(8px);
             opacity: 0.6;
-            letter-spacing: 4px;
+            pointer-events: none;
         }
 
         .tagline {
@@ -119,48 +139,58 @@
         .download-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            gap: 14px;
+            background: linear-gradient(105deg, #2e7d32, #1b5e20, #0a4b0f);
+            background-size: 200% auto;
             color: white;
             font-size: 1.5rem;
-            font-weight: bold;
-            padding: 18px 48px;
-            border-radius: 60px;
+            font-weight: 700;
+            padding: 16px 48px;
+            border-radius: 80px;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin: 20px 0;
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
-            animation: pulse 2s infinite;
+            margin: 20px 0 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(76, 175, 80, 0.3) inset;
             border: none;
             cursor: pointer;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(2px);
+            animation: glowPulse 2.5s infinite;
         }
 
         .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 35px rgba(76, 175, 80, 0.6);
+            transform: translateY(-5px) scale(1.02);
+            background-position: right center;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5), 0 0 0 2px rgba(129, 199, 132, 0.6) inset;
             animation: none;
         }
 
         .download-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .version-badge {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #b9f6ca;
+            border: 1px solid rgba(76,175,80,0.4);
             display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: #4CAF50;
-            margin-top: 15px;
         }
 
-        .screenshots {
+        /* секции */
+        .screenshots, .features, .install {
             margin: 80px 0;
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+            animation: fadeInUp 0.7s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.2s;
+            animation-fill-mode: forwards;
         }
 
-        .screenshots h2 {
+        .screenshots h2, .features h2, .install h2 {
             text-align: center;
             font-size: 2rem;
             margin-bottom: 40px;
@@ -173,29 +203,34 @@
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 32px;
         }
 
         .screenshot-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 20px;
+            background: rgba(20, 22, 36, 0.65);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 20px 20px 24px;
             text-align: center;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
         }
 
         .screenshot-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(76, 175, 80, 0.5);
+            transform: translateY(-12px);
+            border-color: rgba(76, 175, 80, 0.6);
+            background: rgba(30, 32, 48, 0.8);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
         }
 
         .screenshot-img {
             width: 100%;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            border-radius: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease;
+            background: #1e1e2a;
         }
 
         .screenshot-card:hover .screenshot-img {
@@ -203,23 +238,9 @@
         }
 
         .screenshot-card p {
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-
-        .features {
-            margin: 80px 0;
-            animation: fadeInUp 0.8s ease-out 0.3s backwards;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #fff, #aaa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #cfd8dc;
+            font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .features-grid {
@@ -229,22 +250,26 @@
         }
 
         .feature-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 20px;
-            padding: 25px;
+            background: rgba(18, 20, 30, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 28px 20px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 18px rgba(0,0,0,0.2);
         }
 
         .feature-card:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateY(-5px);
+            background: rgba(30, 35, 48, 0.8);
+            transform: translateY(-8px);
+            border-color: rgba(76, 175, 80, 0.4);
         }
 
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px black);
         }
 
         .feature-card h3 {
@@ -256,22 +281,15 @@
         .feature-card p {
             color: #999;
             font-size: 0.9rem;
+            line-height: 1.45;
         }
 
         .install {
-            margin: 80px 0;
-            background: rgba(76, 175, 80, 0.05);
-            border-radius: 30px;
-            padding: 40px;
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            animation: fadeInUp 0.8s ease-out 0.4s backwards;
-        }
-
-        .install h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #4CAF50;
+            background: linear-gradient(125deg, rgba(30,40,25,0.3), rgba(10,20,8,0.4));
+            border-radius: 48px;
+            padding: 48px 36px;
+            border: 1px solid rgba(76,175,80,0.3);
+            backdrop-filter: blur(12px);
         }
 
         .install-steps {
@@ -285,6 +303,10 @@
             flex: 1;
             min-width: 200px;
             text-align: center;
+            background: rgba(0,0,0,0.25);
+            border-radius: 32px;
+            padding: 24px 12px;
+            transition: all 0.2s;
         }
 
         .step-number {
@@ -298,6 +320,7 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin: 0 auto 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         .step p {
@@ -306,37 +329,41 @@
 
         footer {
             text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 20px 20px;
+            border-top: 1px solid rgba(76,175,80,0.2);
             margin-top: 60px;
-            color: #666;
-            font-size: 0.8rem;
+            color: #8f9bb3;
+            font-size: 0.85rem;
         }
 
         footer a {
-            color: #4CAF50;
+            color: #8bc34a;
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
         footer a:hover {
+            color: #c8e6b5;
             text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-            .logo { font-size: 3rem; letter-spacing: 2px; }
-            .logo-wrapper::before { font-size: 3rem; top: 2px; left: 2px; letter-spacing: 2px; }
+            .logo { font-size: 3.8rem; }
+            .logo-wrapper::before { font-size: 3.8rem; top: 2px; left: 2px; }
             .tagline { font-size: 1rem; }
-            .download-btn { font-size: 1.2rem; padding: 14px 30px; }
-            .container { padding: 20px; }
-            .screenshot-grid {
-                grid-template-columns: 1fr;
-            }
+            .download-btn { font-size: 1.2rem; padding: 12px 32px; }
+            .container { padding: 20px 16px; }
+            .screenshot-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .install-steps { gap: 24px; }
+            .step { padding: 16px 8px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Hero секция - текст полностью сохранен, улучшен только визуал заголовка -->
+        <!-- Hero секция - текст оригинальный -->
         <div class="hero">
             <div class="logo-wrapper">
                 <div class="logo">EDA</div>
@@ -443,16 +470,15 @@
     </div>
 
     <script>
-        // Добавляем обработку ошибок для изображений, чтобы они корректно отображались даже если файлов нет
+        // Обработка ошибок для изображений — создаем красивые плейсхолдеры
         (function() {
             const images = document.querySelectorAll('.screenshot-img');
             images.forEach(img => {
                 img.addEventListener('error', function() {
-                    // Создаем красивые плейсхолдеры на случай, если изображения отсутствуют
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    canvas.width = 400;
-                    canvas.height = 250;
+                    canvas.width = 600;
+                    canvas.height = 380;
                     
                     // Градиентный фон
                     const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -463,17 +489,17 @@
                     
                     // Рисуем рамку
                     ctx.strokeStyle = '#4CAF50';
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
                     
-                    // Добавляем иконку и текст
+                    // Добавляем иконку
                     ctx.fillStyle = '#4CAF50';
-                    ctx.font = 'bold 40px sans-serif';
-                    ctx.fillText('🎨', canvas.width/2 - 25, canvas.height/2 - 20);
+                    ctx.font = 'bold 60px sans-serif';
+                    ctx.fillText('🎨', canvas.width/2 - 35, canvas.height/2 - 20);
                     
                     ctx.fillStyle = '#aaa';
-                    ctx.font = '14px sans-serif';
-                    ctx.fillText('EDA Preview', canvas.width/2 - 45, canvas.height/2 + 30);
+                    ctx.font = '18px sans-serif';
+                    ctx.fillText('EDA Preview', canvas.width/2 - 70, canvas.height/2 + 40);
                     
                     img.src = canvas.toDataURL();
                 });
