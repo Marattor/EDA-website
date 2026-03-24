@@ -19,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* Анимация при загрузке */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -43,7 +42,6 @@
             padding: 40px 20px;
         }
 
-        /* Hero секция */
         .hero {
             text-align: center;
             padding: 60px 20px;
@@ -66,7 +64,6 @@
             margin-bottom: 30px;
         }
 
-        /* Кнопка скачивания */
         .download-btn {
             display: inline-flex;
             align-items: center;
@@ -106,26 +103,58 @@
             margin-top: 15px;
         }
 
-        /* Скриншоты */
-                <div class="screenshots">
-            <h2>📸 Скриншоты</h2>
-            <div class="screenshot-grid">
-                <div class="screenshot-card">
-                    <img src="screenshot1.png" alt="Интерфейс редактора EDA" style="width:100%; border-radius:12px; margin-bottom:15px;">
-                    <p>Интерфейс редактора</p>
-                </div>
-                <div class="screenshot-card">
-                    <img src="screenshot2.png" alt="Кисти и инструменты EDA" style="width:100%; border-radius:12px; margin-bottom:15px;">
-                    <p>Кисти и инструменты</p>
-                </div>
-                <div class="screenshot-card">
-                    <img src="screenshot3.png" alt="Фигуры и трансформации EDA" style="width:100%; border-radius:12px; margin-bottom:15px;">
-                    <p>Фигуры и трансформации</p>
-                </div>
-            </div>
-        </div>
+        .screenshots {
+            margin: 80px 0;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
 
-        /* Особенности */
+        .screenshots h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .screenshot-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        .screenshot-img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-card:hover .screenshot-img {
+            transform: scale(1.02);
+        }
+
+        .screenshot-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
         .features {
             margin: 80px 0;
             animation: fadeInUp 0.8s ease-out 0.3s backwards;
@@ -177,7 +206,6 @@
             font-size: 0.9rem;
         }
 
-        /* Как установить */
         .install {
             margin: 80px 0;
             background: rgba(76, 175, 80, 0.05);
@@ -224,7 +252,6 @@
             color: #ccc;
         }
 
-        /* Подвал */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -248,6 +275,9 @@
             .tagline { font-size: 1rem; }
             .download-btn { font-size: 1.2rem; padding: 14px 30px; }
             .container { padding: 20px; }
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -264,20 +294,20 @@
             <div class="version-badge">Версия 0.87 BETA • Windows • ~62 МБ</div>
         </div>
 
-        <!-- Скриншоты -->
+        <!-- Скриншоты с реальными изображениями -->
         <div class="screenshots">
             <h2>📸 Скриншоты</h2>
             <div class="screenshot-grid">
                 <div class="screenshot-card">
-                    <div class="screenshot-placeholder">🎨 ✏️</div>
+                    <img src="screenshot1.png" alt="Интерфейс EDA" class="screenshot-img">
                     <p>Интерфейс редактора</p>
                 </div>
                 <div class="screenshot-card">
-                    <div class="screenshot-placeholder">🖌️ 🎨</div>
+                    <img src="screenshot2.png" alt="Кисти и инструменты EDA" class="screenshot-img">
                     <p>Кисти и инструменты</p>
                 </div>
                 <div class="screenshot-card">
-                    <div class="screenshot-placeholder">🔄 📐</div>
+                    <img src="screenshot3.png" alt="Фигуры и трансформации EDA" class="screenshot-img">
                     <p>Фигуры и трансформации</p>
                 </div>
             </div>
