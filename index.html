@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDA — Скачать графический редактор</title>
+    <title>EDA — графический редактор для творчества</title>
+    <meta name="description" content="EDA — бесплатный графический редактор с поддержкой кистей, спрея, фигур, зума и экспорта. Рисуй с удовольствием!">
     <style>
         * {
             margin: 0;
@@ -12,111 +13,377 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0a0a12 0%, #12121c 50%, #1a1a2a 100%);
+            color: white;
+            line-height: 1.6;
         }
 
-        .card {
-            background: rgba(30, 30, 50, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            padding: 50px;
-            max-width: 550px;
+        /* Анимация при загрузке */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero секция */
+        .hero {
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 60px 20px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        h1 {
-            font-size: 4rem;
-            background: linear-gradient(135deg, #4CAF50, #2196F3);
+        .logo {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4CAF50, #2196F3, #9C27B0);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             margin-bottom: 10px;
         }
 
-        .subtitle {
+        .tagline {
+            font-size: 1.3rem;
             color: #aaa;
             margin-bottom: 30px;
-            font-size: 1.1rem;
         }
 
+        /* Кнопка скачивания */
         .download-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
             background: linear-gradient(135deg, #4CAF50, #2e7d32);
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            padding: 18px 45px;
+            padding: 18px 48px;
             border-radius: 60px;
             text-decoration: none;
             transition: all 0.3s ease;
-            margin: 15px 0;
+            margin: 20px 0;
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+            animation: pulse 2s infinite;
+            border: none;
+            cursor: pointer;
         }
 
         .download-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 15px 35px rgba(76, 175, 80, 0.6);
+            animation: none;
         }
 
-        .version {
-            color: #666;
-            font-size: 0.8rem;
-            margin: 10px 0;
+        .download-btn:active {
+            transform: scale(0.98);
         }
 
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 30px 0;
-        }
-
-        .feature {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 6px 14px;
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
             border-radius: 30px;
             font-size: 0.8rem;
+            color: #4CAF50;
+            margin-top: 15px;
+        }
+
+        /* Скриншоты */
+        .screenshots {
+            margin: 80px 0;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .screenshot-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #2a2a3e, #1a1a2e);
+            border-radius: 12px;
+            padding: 40px;
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .screenshot-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Особенности */
+        .features {
+            margin: 80px 0;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .feature-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .feature-card p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Как установить */
+        .install {
+            margin: 80px 0;
+            background: rgba(76, 175, 80, 0.05);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .install h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #4CAF50;
+        }
+
+        .install-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .step p {
             color: #ccc;
         }
 
+        /* Подвал */
         footer {
-            margin-top: 25px;
-            color: #555;
-            font-size: 0.7rem;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 60px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 3rem; }
+            .tagline { font-size: 1rem; }
+            .download-btn { font-size: 1.2rem; padding: 14px 30px; }
+            .container { padding: 20px; }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>EDA</h1>
-        <div class="subtitle">Enjoy Draw Art — рисуй с удовольствием</div>
-
-        <a href="https://github.com/Marattor/EDA-website/releases/download/v0.87/EDA_Setup.exe" class="download-btn">
-            ⬇️ Скачать EDA
+    <div class="container">
+        <!-- Hero секция -->
+        <div class="hero">
+            <div class="logo">EDA</div>
+            <div class="tagline">Enjoy Draw Art — рисуй с удовольствием</div>
+            
+            <a href="https://github.com/Marattor/EDA-website/releases/download/v0.87/EDA_Setup.exe" class="download-btn" download>
+                ⬇️ Скачать EDA
             </a>
-
-        <div class="version">Версия 0.87 BETA | Windows | ~15 МБ</div>
-
-        <div class="features">
-            <span class="feature">🎨 Кисти</span>
-            <span class="feature">🖌️ Спрей</span>
-            <span class="feature">📐 Фигуры</span>
-            <span class="feature">🔄 Зум</span>
-            <span class="feature">💾 Undo/Redo</span>
-            <span class="feature">📤 Экспорт</span>
+            <div class="version-badge">Версия 0.87 BETA • Windows • ~15 МБ</div>
         </div>
 
+        <!-- Скриншоты -->
+        <div class="screenshots">
+            <h2>📸 Скриншоты</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">🎨 ✏️</div>
+                    <p>Интерфейс редактора</p>
+                </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">🖌️ 🎨</div>
+                    <p>Кисти и инструменты</p>
+                </div>
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">🔄 📐</div>
+                    <p>Фигуры и трансформации</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Особенности -->
+        <div class="features">
+            <h2>✨ Возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✏️</div>
+                    <h3>Разные кисти</h3>
+                    <p>Обычная кисть и спрей. Настраиваемый размер и форма (круг, квадрат, треугольник).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Прозрачность</h3>
+                    <p>Полная поддержка альфа-канала. Рисуй прозрачными кистями.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Зум и панорамирование</h3>
+                    <p>Ctrl + колесо мыши для масштабирования. Средняя кнопка для перемещения.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📐</div>
+                    <h3>Фигуры</h3>
+                    <p>Линия, квадрат, круг. Рисуй идеальные формы с предпросмотром.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Undo / Redo</h3>
+                    <p>Ctrl+Z и Ctrl+Y. История действий с компрессией для экономии памяти.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📤</div>
+                    <h3>Экспорт</h3>
+                    <p>Сохраняй в PNG, JPEG, BMP, GIF, TIFF. Настраиваемый размер изображения.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Пипетка</h3>
+                    <p>Выбирай цвет прямо с холста. Быстро и удобно.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Импорт</h3>
+                    <p>Открывай изображения PNG, JPG, BMP прямо в редакторе.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Как установить -->
+        <div class="install">
+            <h2>📦 Как установить</h2>
+            <div class="install-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p>Скачай файл <strong>EDA_Setup.exe</strong></p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>Запусти скачанный файл</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Начни рисовать! 🎨</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подвал -->
         <footer>
-            Бесплатно • Просто • Быстро
+            <p>EDA — бесплатный графический редактор</p>
+            <p>📧 Поддержка: <a href="#">eda@example.com</a> • 🐙 <a href="https://github.com/Marattor/EDA-website">GitHub</a></p>
+            <p>© 2025 EDA Studio</p>
         </footer>
     </div>
 </body>
